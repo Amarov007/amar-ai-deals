@@ -4,6 +4,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-cyan-glow: oklch(0.78 0.13 220);
+  --color-blue-core: oklch(0.55 0.2 264);
+  --color-violet-core: oklch(0.65 0.21 296);
+  --color-magenta-glow: oklch(0.68 0.22 355);
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
 /*
  * Design system definition.
  *
@@ -141,4 +150,145 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+/* ── AMAR007AI design system (dark by default) ───────────────────────── */
+:root {
+  --radius: 1rem;
+  --background: oklch(0.16 0.028 265);
+  --foreground: oklch(0.97 0.008 265);
+  --card: oklch(0.21 0.03 265 / 0.55);
+  --card-foreground: oklch(0.97 0.008 265);
+  --popover: oklch(0.18 0.03 265);
+  --popover-foreground: oklch(0.97 0.008 265);
+  --primary: oklch(0.65 0.21 296);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.26 0.04 265);
+  --secondary-foreground: oklch(0.97 0.008 265);
+  --muted: oklch(0.24 0.032 265);
+  --muted-foreground: oklch(0.72 0.03 265);
+  --accent: oklch(0.78 0.13 220);
+  --accent-foreground: oklch(0.16 0.028 265);
+  --destructive: oklch(0.63 0.23 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.99 0 0 / 0.1);
+  --input: oklch(0.99 0 0 / 0.14);
+  --ring: oklch(0.78 0.13 220);
+  --deep-space: oklch(0.115 0.022 265);
+  --gradient-brand: linear-gradient(
+    100deg,
+    oklch(0.78 0.13 220),
+    oklch(0.55 0.2 264),
+    oklch(0.65 0.21 296),
+    oklch(0.68 0.22 355)
+  );
+  --shadow-glow: 0 18px 60px -22px oklch(0.65 0.21 296 / 0.55);
+}
+
+body {
+  font-family: var(--font-sans);
+  background:
+    radial-gradient(60rem 40rem at 12% -8%, oklch(0.55 0.2 264 / 0.22), transparent 70%),
+    radial-gradient(50rem 36rem at 88% 4%, oklch(0.65 0.21 296 / 0.2), transparent 70%),
+    radial-gradient(46rem 30rem at 50% 108%, oklch(0.68 0.22 355 / 0.14), transparent 70%),
+    var(--deep-space);
+  background-attachment: fixed;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+[dir="rtl"] body {
+  font-family: "Noto Kufi Arabic", var(--font-sans);
+}
+
+@utility glass {
+  background: linear-gradient(
+    160deg,
+    oklch(0.99 0 0 / 0.07),
+    oklch(0.99 0 0 / 0.02)
+  );
+  border: 1px solid oklch(0.99 0 0 / 0.1);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+@utility glass-hover {
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+  &:hover {
+    transform: translateY(-6px);
+    border-color: oklch(0.78 0.13 220 / 0.45);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+@utility text-brand {
+  background: var(--gradient-brand);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: brand-flow 9s ease-in-out infinite;
+}
+
+@utility bg-brand {
+  background: var(--gradient-brand);
+  background-size: 200% 100%;
+  animation: brand-flow 9s ease-in-out infinite;
+}
+
+@utility ring-brand {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-brand);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+}
+
+@keyframes brand-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pulse-mesh {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.08);
+  }
+}
+
+@utility mesh-pulse {
+  animation: pulse-mesh 12s ease-in-out infinite;
 }
